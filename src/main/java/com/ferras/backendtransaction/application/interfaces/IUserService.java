@@ -1,4 +1,4 @@
-package com.ferras.backendtransaction.interfaces;
+package com.ferras.backendtransaction.application.interfaces;
 import com.ferras.backendtransaction.domain.user.User;
 import java.math.BigDecimal;
 
