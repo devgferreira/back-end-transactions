@@ -3,7 +3,7 @@ import com.ferras.backendtransaction.domain.user.User;
 import java.math.BigDecimal;
 
 public interface IUserService {
-    void validateTransaction(User sender, BigDecimal amount);
-    User findUserById(int id);
+    void validateTransaction(User sender, BigDecimal amount) throws Exception;
+    User findUserById(int id) throws Exception;
     User saveUser(User user);
 }
