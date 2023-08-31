@@ -1,6 +1,6 @@
 package com.ferras.backendtransaction.domain.repository;
 
-import com.ferras.backendtransaction.domain.transaction.Transaction;
+import com.ferras.backendtransaction.domain.model.transaction.Transaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 

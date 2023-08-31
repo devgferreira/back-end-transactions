@@ -3,7 +3,7 @@ package com.ferras.backendtransaction.application.service;
 import com.ferras.backendtransaction.application.interfaces.IUserService;
 import com.ferras.backendtransaction.domain.enums.UserType;
 import com.ferras.backendtransaction.domain.repository.IUserRepository;
-import com.ferras.backendtransaction.domain.user.User;
+import com.ferras.backendtransaction.domain.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

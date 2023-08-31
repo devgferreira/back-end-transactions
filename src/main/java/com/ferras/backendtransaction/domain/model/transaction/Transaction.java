@@ -1,6 +1,6 @@
-package com.ferras.backendtransaction.domain.transaction;
+package com.ferras.backendtransaction.domain.model.transaction;
 
-import com.ferras.backendtransaction.domain.user.User;
+import com.ferras.backendtransaction.domain.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

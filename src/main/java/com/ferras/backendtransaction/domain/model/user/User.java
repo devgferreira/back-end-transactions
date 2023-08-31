@@ -1,4 +1,4 @@
-package com.ferras.backendtransaction.domain.user;
+package com.ferras.backendtransaction.domain.model.user;
 
 import com.ferras.backendtransaction.domain.enums.UserType;
 import lombok.AllArgsConstructor;

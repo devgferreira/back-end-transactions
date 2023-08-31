@@ -1,5 +1,5 @@
 package com.ferras.backendtransaction.application.interfaces;
-import com.ferras.backendtransaction.domain.user.User;
+import com.ferras.backendtransaction.domain.model.user.User;
 import java.math.BigDecimal;
 
 public interface IUserService {
