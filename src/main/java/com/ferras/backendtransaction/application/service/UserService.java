@@ -28,7 +28,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findUserById(int id) throws Exception {
+    public User findUserById(Long id) throws Exception {
         return  _userRepository.findUserById(id).orElseThrow(() -> new Exception("Usuário não encontrado"));
     }
 
