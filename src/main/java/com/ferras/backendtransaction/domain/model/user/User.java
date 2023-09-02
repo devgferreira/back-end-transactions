@@ -2,7 +2,6 @@ package com.ferras.backendtransaction.domain.model.user;
 
 import com.ferras.backendtransaction.domain.enums.UserType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -10,10 +9,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 
+
+@Document
 @Getter
 @Setter
-@Document
-@Data
 @AllArgsConstructor
 public class User {
     @Id

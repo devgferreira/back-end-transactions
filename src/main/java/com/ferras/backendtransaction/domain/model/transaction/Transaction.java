@@ -1,24 +1,23 @@
 package com.ferras.backendtransaction.domain.model.transaction;
 
 import com.ferras.backendtransaction.domain.model.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
+@Document(collection = "transactions")
 @Getter
 @Setter
-@Document(collection = "transactions")
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
     @Id
     private int id;
     private BigDecimal amount;
     private User sender;
     private User receiver;
+    private LocalDateTime timestamp;
 }
