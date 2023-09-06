@@ -18,8 +18,8 @@ import java.util.Map;
 
 @Service
 public class TransactionService implements ITransactionService {
-    private ITransactionRepository _transactionRepository;
-    private IUserService _userService;
+    private final ITransactionRepository _transactionRepository;
+    private final IUserService _userService;
 
     private RestTemplate restTemplate;
 
@@ -31,24 +31,24 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public void createTransaction(TransactionDTO transactionDTO) throws Exception {
-        User sender = _userService.findUserById(transactionDTO.senderId());
-        User receiver = _userService.findUserById(transactionDTO.receiverId());
+        User sender = _userService.findUserById(transactionDTO.getSender().getId());
+        User receiver = _userService.findUserById(transactionDTO.getReceiver().getId());
 
-        _userService.validateTransaction(sender, transactionDTO.value());
+        _userService.validateTransaction(sender, transactionDTO.getAmount());
 
-        boolean isAuthorized =!authorizeTransaction(sender, transactionDTO.value());
+        boolean isAuthorized =!authorizeTransaction(sender, transactionDTO.getAmount());
         if(!isAuthorized){
             throw new Exception("Transação não autorizado");
         }
 
         Transaction transaction = new Transaction();
-        transaction.setAmount(transactionDTO.value());
+        transaction.setAmount(transactionDTO.getAmount());
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
         transaction.setTimestamp(LocalDateTime.now());
 
-        sender.setBalance(sender.getBalance().subtract(transactionDTO.value()));
-        receiver.setBalance(receiver.getBalance().add(transactionDTO.value()));
+        sender.setBalance(sender.getBalance().subtract(transactionDTO.getAmount()));
+        receiver.setBalance(receiver.getBalance().add(transactionDTO.getAmount()));
 
         _transactionRepository.save(transaction);
         _userService.saveUser(sender);

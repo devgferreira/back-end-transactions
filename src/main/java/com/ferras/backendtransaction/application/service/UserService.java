@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Service
 public class UserService implements IUserService {
 
-    private IUserRepository _userRepository;
+    private final IUserRepository _userRepository;
     @Autowired
     public UserService(IUserRepository userRepository) {
         _userRepository = userRepository;
@@ -33,7 +33,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User saveUser(User user) {
-        return _userRepository.save(user);
+    public void saveUser(User user) {
+        _userRepository.save(user);
     }
 }
