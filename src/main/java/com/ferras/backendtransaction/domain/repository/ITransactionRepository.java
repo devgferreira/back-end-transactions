@@ -4,5 +4,5 @@ import com.ferras.backendtransaction.domain.model.transaction.Transaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 
-public interface ITransactionRepository extends MongoRepository<Transaction, Long> {
+public interface ITransactionRepository extends MongoRepository<Transaction, String> {
 }
