@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class TransactionDTO{
-        private Long id;
+        private String id;
         private BigDecimal amount;
         private User sender;
         private User receiver;
