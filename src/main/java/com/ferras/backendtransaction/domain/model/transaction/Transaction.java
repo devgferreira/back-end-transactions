@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Transaction {
     @Id
-    private Long id;
+    private String id;
     private BigDecimal amount;
     private User sender;
     private User receiver;
