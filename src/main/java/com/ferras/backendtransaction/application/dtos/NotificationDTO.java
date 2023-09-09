@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class NotificationDTO {
+
     String email;
     String message;
 }

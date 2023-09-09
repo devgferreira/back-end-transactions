@@ -2,10 +2,7 @@ package com.ferras.backendtransaction.controlleres;
 
 import com.ferras.backendtransaction.application.dtos.UserDTO;
 import com.ferras.backendtransaction.application.interfaces.IUserService;
-import com.ferras.backendtransaction.domain.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +19,7 @@ public class UserController {
         _userService = userService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws Exception {
         UserDTO user = _userService.createUser(userDTO);
         return ResponseEntity.ok(user);
@@ -31,6 +28,10 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUser(){
         List<UserDTO> users = _userService.getAllUsers();
         return ResponseEntity.ok(users);
-
+    }
+    @GetMapping(value = "/{document}")
+    public ResponseEntity<UserDTO> findUserByDocument(@PathVariable("document") String document) throws Exception {
+        UserDTO user = _userService.findUserByDocument(document);
+        return ResponseEntity.ok(user);
     }
 }
