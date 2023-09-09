@@ -33,4 +33,7 @@ public class User{
     private BigDecimal balance;
     private UserType userType;
 
+    public User(String id) {
+        this.id = id;
+    }
 }

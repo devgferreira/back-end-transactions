@@ -2,6 +2,7 @@ package com.ferras.backendtransaction.application.service;
 
 import com.ferras.backendtransaction.application.dtos.TransactionDTO;
 import com.ferras.backendtransaction.application.dtos.UserDTO;
+import com.ferras.backendtransaction.application.interfaces.INotificationsService;
 import com.ferras.backendtransaction.application.interfaces.ITransactionService;
 import com.ferras.backendtransaction.application.interfaces.IUserService;
 import com.ferras.backendtransaction.domain.model.transaction.Transaction;
@@ -22,45 +23,54 @@ import java.util.Map;
 public class TransactionService implements ITransactionService {
     private final ITransactionRepository _transactionRepository;
     private final IUserService _userService;
+
+    private final INotificationsService _notificationsService;
     private final ModelMapper modelMapper;
 
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
-    public TransactionService(ITransactionRepository _transactionRepository, IUserService _userService, ModelMapper modelMapper) {
+    public TransactionService(ITransactionRepository _transactionRepository, IUserService _userService, INotificationsService notificationsService, ModelMapper modelMapper) {
         this._transactionRepository = _transactionRepository;
         this._userService = _userService;
+        _notificationsService = notificationsService;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public void createTransaction(TransactionDTO transactionDTO) throws Exception {
+    public TransactionDTO createTransaction(TransactionDTO transactionDTO) throws Exception {
+
         Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
+
         UserDTO senderDTO = _userService.findUserById(transaction.getSender().getId());
         UserDTO receiverDTO = _userService.findUserById(transactionDTO.getReceiver().getId());
 
         User sender = modelMapper.map(senderDTO, User.class);
         User receiver = modelMapper.map(receiverDTO, User.class);
 
-        _userService.validateTransaction(senderDTO, transaction.getAmount());
+         _userService.validateTransaction(senderDTO, transactionDTO.getAmount());
 
         boolean isAuthorized =!authorizeTransaction(receiverDTO, transactionDTO.getAmount());
         if(!isAuthorized){
             throw new Exception("Transação não autorizado");
         }
-        transaction.setAmount(transactionDTO.getAmount());
+
+        transaction.setAmount(transaction.getAmount());
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
         transaction.setTimestamp(LocalDateTime.now());
 
-        senderDTO.setBalance(senderDTO.getBalance().subtract(transactionDTO.getAmount()));
-        receiverDTO.setBalance(receiverDTO.getBalance().add(transactionDTO.getAmount()));
+
+        sender.setBalance(sender.getBalance().subtract(transaction.getAmount()));
+        receiver.setBalance(receiver.getBalance().add(transaction.getAmount()));
+        _userService.saveUser(modelMapper.map(sender, UserDTO.class));
+        _userService.saveUser(modelMapper.map(receiver, UserDTO.class));
 
         _transactionRepository.save(transaction);
-        _userService.saveUser(senderDTO);
-        _userService.saveUser(receiverDTO);
 
+
+        return modelMapper.map(transaction, TransactionDTO.class);
     }
 
     @Override
