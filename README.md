@@ -13,6 +13,7 @@ This project is focused on educational purposes and is implemented using Java, S
 | HTTP Method | URL                                     | Description                             |
 |-------------|-----------------------------------------|-----------------------------------------|
 | GET         | http://localhost:8080/users            | Returns all registered users            |
+| GET         | http://localhost:8080/{document}            | Returns the document user           |
 | POST        | http://localhost:8080/users            | Creates a new user                      |
 | POST        | http://localhost:8080/transaction      | Perform a transaction between users    |
 | SWAGGER     | http://localhost:8080/swagger-ui/index.html# | Swagger Interface                   |
